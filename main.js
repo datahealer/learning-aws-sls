@@ -3,15 +3,6 @@ const Empolyee = require("./schema");
 
 connectDB();
 
-module.exports.hello = async (event) => {
-  return {
-    statusCode: 200,
-    body: JSON.stringify({
-      message: "Go Serverless v2.0! Your function executed successfully!",
-    }),
-  };
-};
-
 module.exports.getEmployees = async (event) => {
   const e = await Empolyee.find();
 

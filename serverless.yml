@@ -11,12 +11,6 @@ provider:
   lambdaHashingVersion: "20201221"
 
 functions:
-  hello:
-    handler: main.hello
-    events:
-      - http:
-          path: /hello
-          method: get
   getEmployees:
     handler: main.getEmployees
     events:
