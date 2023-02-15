@@ -1,5 +1,7 @@
-"use strict";
+const connectDB = require("./config/db");
+const Post = require('./model/postSchema')
 
+connectDB();
 module.exports.hello = async (event) => {
   return {
     statusCode: 200,
@@ -11,15 +13,8 @@ module.exports.hello = async (event) => {
 };
 
 module.exports.getEmployees = async (event) => {
-    const e = [
-        {id:1, name: "Chitransh", department: 1},
-        {id:2, name: "Sushma", department: 1},
-        {id:3, name: "Paras", department: 1},
-        {id:4, name: "Shivam", department: 1},
-        {id:5, name: "Hardik", department: 1},
-        {id:6, name: "Saksham", department: 1},
-    ]
-    // const e = await readfromDB()
+    const e =await Post.find();
+    
     return {
         statusCode: 200,
         body: JSON.stringify(e),
@@ -27,13 +22,19 @@ module.exports.getEmployees = async (event) => {
 }
 
 module.exports.postEmployee = async (event) => {
-    // 1. read employee object from event.body
-    // 2. conver that into JSON
-    // 3. Save in mongoDB
+ 
+    const {name, department}=JSON.parse(event.body)
+
+    const employ = new Post({
+      name,
+      department
+    })
+    const data =await employ.save();
     return {
         statusCode: 200,
         body: JSON.stringify({
-            message: "Data Saved"
+            message: "Data Saved",
+            data
         }),
       };
 }
