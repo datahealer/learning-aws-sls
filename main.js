@@ -21,28 +21,21 @@ module.exports.getEmployees = async (event) => {
       body: JSON.stringify(e),
     };
 }  
-module.exports.postEmployee = async (req,res) => {
+module.exports.postEmployee = async (event) => {
   // 1. read employee object from event.body
   // 2. conver that into JSON
  // 3. Save in mongoDB
  const employee = new Employee({
-  name:req.body.name,
-  Department:req.body.name
+  name:JSON.parse(event.body.name),
+  Department:JSON.parse(event.body.Department)
  })
- employee.save()
-    .then(result =>{
-        console.log(result)
-        res.status(200).json({
-            newUser: result
-        })
-     })
-
-     .catch(err => {
-        console.log(err);
-        res.status(500).json({
-            error:err
-        })
-     })
+ employee.save();
+ return {
+  statusCode: 200,
+  body: JSON.stringify({
+      message: "Data Saved"
+  }),
+};
 }
 
 
