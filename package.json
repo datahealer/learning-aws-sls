@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "mongoose": "^6.9.1",
     "serverless": "^2.72.3"
   },
   "devDependencies": {

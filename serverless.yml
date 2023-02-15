@@ -27,5 +27,5 @@ functions:
     handler: main.postEmployee
     events:
       - http:
-          path: /employee
+          path: /postemployee
           method: post
