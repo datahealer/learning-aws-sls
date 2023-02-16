@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.0.3",
     "mongoose": "^6.9.1",
     "node": "^14.17.3",
     "serverless": "^2.72.3"

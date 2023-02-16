@@ -13,6 +13,12 @@ const employeeSchema = new mongoose.Schema({
         type: "String",
         required : true,
     },
+    EMAIL :{
+        type: "String",
+        required : true,
+        
+
+    }
 });
 const employee = mongoose.model("employee", employeeSchema)
 module.exports = employee;
