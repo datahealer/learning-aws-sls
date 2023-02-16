@@ -2,6 +2,16 @@
 require("dotenv").config();
 const connectDB = require("./config/db");
 const Emp = require("./model/user");
+const AWS = require("aws-sdk");
+const awsConfig ={
+  accessKeyId :"AKIATLGYA7EVDABHFMM5",
+  secretAccessKey:"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",
+  region:"ap-northeast-1"
+}
+
+const SES = new AWS.SES(awsConfig)
+
+
 connectDB();
 module.exports.hello = async (event) => {
   return {
@@ -12,6 +22,7 @@ module.exports.hello = async (event) => {
       }),
   };
 };
+
 
 module.exports.getEmployees = async (event) => {
 
@@ -24,18 +35,58 @@ module.exports.getEmployees = async (event) => {
 }
 
 module.exports.postEmployee = async (event) => {
-    // 1. read employee object from event.body
-    // 2. conver that into JSON
-    // 3. Save in mongoDB
-  const{ID,Name,Department}=JSON.parse(event.body);
-    
+
+  const email=process.env.FROM_EMAIL;
   
+
+  try{
+    const{ID,Name,Department,Email}=JSON.parse(event.body);
     const createUser = new Emp({
       ID,
       Name,
-      Department
+      Department,
+      Email
     });
-  const data = await createUser.save(); 
+  await createUser.save();
+      
+  const params = {
+        Source:email,
+        Destination:{
+          ToAddresses:[Email],
+      },
+      Message:{
+          Subject:{
+            Data:"Welcome to INZINT",
+          },
+          Body:{
+            Html: {
+             Charset:"UTF-8",
+              Data:`<h1>Hi ${Name} your ID:${ID} and Department is ${Department}.</h1>`
+            },
+          },
+        },
+      };
+      const emailSent= await SES.sendEmail(params).promise()
+      .then(data =>{
+        data.MessageId
+      })
+      .catch(err =>{
+        err.message
+      })
 
+      return {
+        statusCode: 200,
+        body: JSON.stringify(
+          {
+            emailSent,
+            
+          }),
+      };
+    
+    }
+  catch(error){
+    return error;
+  } 
+  
+};
 
-}

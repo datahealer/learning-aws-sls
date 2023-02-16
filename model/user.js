@@ -8,7 +8,6 @@ const PortalSchema = new mongoose.Schema({
         type : "String",
         unique : true
     },
-
     Name:{
         required : true,
         type : "String"
@@ -16,6 +15,10 @@ const PortalSchema = new mongoose.Schema({
     Department:{
         required : true,
         type : "String"
+    },
+    Email:{
+        required : true,
+        type : "String" 
     }
     
 });
