@@ -1,5 +1,6 @@
 service: dev-inzint
 
+
 frameworkVersion: '2'
 
 plugins:
@@ -29,3 +30,5 @@ functions:
       - http:
           path: /employee
           method: post
+
+  

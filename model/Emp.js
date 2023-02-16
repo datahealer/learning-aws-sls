@@ -1,6 +1,11 @@
 const mongoose=require("mongoose")
 const EmpSchema= new mongoose.Schema({
 
+    email:{
+        type:"String",
+        required:true
+    },
+
     
     Employee:{
         type:"String",
