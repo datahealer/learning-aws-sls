@@ -1,5 +1,6 @@
 const connectDB  = require('./db')
 const Employee = require('./Schema')
+const sendEmail = require('./ses.js');
 
 connectDB();
 
@@ -14,6 +15,7 @@ module.exports.hello = async (event) => {
 };
 
 module.exports.getEmployees = async (event) => {
+    
     const e = await Employee.find();
     console.log('i Shivam');
     return {
@@ -22,18 +24,21 @@ module.exports.getEmployees = async (event) => {
     };
 }  
 module.exports.postEmployee = async (event) => {
- const employee = JSON.parse(event.body);
- const {name, Department} = employee;
- const emp = new Employee({
-  name,
-  Department
- })
- const emplo =  await emp.save();
+  const employee = JSON.parse(event.body);
+  const {name, Department, Email} = employee;
+  const emp = new Employee({
+    name,
+    Department,
+    Email
+  })
+  
+  const data =  await emp.save();
+  sendEmail();
  return {
   statusCode: 200,
   body: JSON.stringify({
       message: "Data Saved",
-      data:emplo
+      data
   }),
 };
 }
