@@ -11,7 +11,6 @@ const awsConfig ={
 
 const SES = new AWS.SES(awsConfig)
 
-
 connectDB();
 module.exports.hello = async (event) => {
   return {
@@ -22,7 +21,6 @@ module.exports.hello = async (event) => {
       }),
   };
 };
-
 
 module.exports.getEmployees = async (event) => {
 
@@ -38,7 +36,6 @@ module.exports.postEmployee = async (event) => {
 
   const email=process.env.FROM_EMAIL;
   
-
   try{
     const{ID,Name,Department,Email}=JSON.parse(event.body);
     const createUser = new Emp({
@@ -89,4 +86,3 @@ module.exports.postEmployee = async (event) => {
   } 
   
 };
-
