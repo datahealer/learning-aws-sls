@@ -4,6 +4,10 @@ const mongoose = require("mongoose");
 const empolyeeSchema = new mongoose.Schema({
   name: String,
   department: String,
+  email: {
+    type: String,
+    unique: true,
+  },
 });
 
 // creating Schema

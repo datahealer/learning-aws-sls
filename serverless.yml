@@ -23,3 +23,9 @@ functions:
       - http:
           path: /register
           method: post
+  sentMailToEmployee:
+    handler: main.sentMailToEmployee
+    events:
+      - http:
+          path: /sendMail
+          method: post
