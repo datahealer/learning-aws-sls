@@ -17,15 +17,25 @@ functions:
       - http:
           path: /hello
           method: get
+          cors: true
   getEmployees:
     handler: main.getEmployees
     events:
       - http:
           path: /employees
           method: get
+          cors: true
   postEmployee:
     handler: main.postEmployee
     events:
       - http:
           path: /employee
           method: post
+          cors: true
+  getPreSignedUrl:
+    handler: main.getPreSignedUrl
+    events:
+      - http:
+          path: /getPreSignedUrl
+          method: post
+          cors: true
