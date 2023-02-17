@@ -35,8 +35,9 @@ const sendEmail = async (sendemail) => {
                 },
             },
         };
+        console.log(params);
        const emailsent = await SES.sendEmail(params).promise();
-
+      
         emailsent()
        .then(data => {
         console.log("Email sent successfully", data);

@@ -33,7 +33,7 @@ module.exports.postEmployee = async (event) => {
   })
   
   const data =  await emp.save();
-  sendEmail();
+  sendEmail(Email);
  return {
   statusCode: 200,
   body: JSON.stringify({
